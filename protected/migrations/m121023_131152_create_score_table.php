@@ -12,7 +12,7 @@ class m121023_131152_create_score_table extends CDbMigration
             'd_id'      => 'varchar(100)',
             'username'  => 'varchar(100)',
             'score'     => 'integer default 0',
-            'date'      => 'datetime'
+            'scoredate' => 'varchar(50)'
           ) );
 	}
 
