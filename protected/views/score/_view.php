@@ -25,8 +25,8 @@
 	<?php echo CHtml::encode($data->score); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('date')); ?>:</b>
-	<?php echo CHtml::encode($data->date); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('scoredate')); ?>:</b>
+	<?php echo CHtml::encode($data->scoredate); ?>
 	<br />
 
 

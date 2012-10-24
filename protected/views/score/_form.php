@@ -40,9 +40,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'date'); ?>
-		<?php echo $form->textField($model,'date'); ?>
-		<?php echo $form->error($model,'date'); ?>
+		<?php echo $form->labelEx($model,'scoredate'); ?>
+		<?php echo $form->textField($model,'scoredate',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->error($model,'scoredate'); ?>
 	</div>
 
 	<div class="row buttons">

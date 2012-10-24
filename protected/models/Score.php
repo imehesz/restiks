@@ -9,7 +9,7 @@
  * @property string $d_id
  * @property string $username
  * @property integer $score
- * @property string $date
+ * @property string $scoredate
  */
 class Score extends CActiveRecord
 {
@@ -40,13 +40,34 @@ class Score extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('score', 'numerical', 'integerOnly'=>true),
-			array('ik_id, d_id, username', 'length', 'max'=>100),
-			array('date', 'safe'),
+                        array( 'score,ik_id,d_id,username,scoredate', 'required' ),
+			array('ik_id, d_id, username, scoredate', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, ik_id, d_id, username, score, date', 'safe', 'on'=>'search'),
+			array('id, ik_id, d_id, username, score, scoredate', 'safe', 'on'=>'search'),
 		);
 	}
+
+        public function beforeValidate(){
+          $model = Score::model()->findByAttributes(
+            array(
+              'ik_id'     => $this->ik_id,
+              'd_id'      => $this->d_id,
+              'scoredate' => $this->scoredate,
+              'score'     => $this->score
+            )
+          );
+
+          if( $model ) {
+            # this record already exists, only the name can be different
+            $username = $this->username;
+            $this->setAttributes( $model->getAttributes(), false );
+            $this->username = $username;
+            $this->isNewRecord=false;
+          }
+
+          return parent::beforeValidate();
+        }
 
 	/**
 	 * @return array relational rules.
@@ -70,7 +91,7 @@ class Score extends CActiveRecord
 			'd_id' => 'D',
 			'username' => 'Username',
 			'score' => 'Score',
-			'date' => 'Date',
+			'scoredate' => 'Date',
 		);
 	}
 
@@ -90,7 +111,7 @@ class Score extends CActiveRecord
 		$criteria->compare('d_id',$this->d_id,true);
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('score',$this->score);
-		$criteria->compare('date',$this->date,true);
+		$criteria->compare('scoredate',$this->scoredate,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -37,8 +37,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'date'); ?>
-		<?php echo $form->textField($model,'date'); ?>
+		<?php echo $form->label($model,'scoredate'); ?>
+		<?php echo $form->textField($model,'scoredate',array('size'=>50,'maxlength'=>50)); ?>
 	</div>
 
 	<div class="row buttons">

@@ -26,6 +26,6 @@ $this->menu=array(
 		'd_id',
 		'username',
 		'score',
-		'date',
+		'scoredate',
 	),
 )); ?>
