@@ -112,9 +112,13 @@ class Score extends CActiveRecord
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('score',$this->score);
 		$criteria->compare('scoredate',$this->scoredate,true);
+    $criteria->order = 'score DESC';
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+      'pagination' => array(
+        'pageSize' => 15
+      )
 		));
 	}
 }

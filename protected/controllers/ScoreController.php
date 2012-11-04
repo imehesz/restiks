@@ -27,10 +27,14 @@ class ScoreController extends ERestController
 	public function _accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+			array('allow',
+				'actions'=>array('index'),
 				'users'=>array('*'),
 			),
+			array('deny',  // deny all users
+				'users'=>array('*'),
+			),
+      /*
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
 				'users'=>array('@'),
@@ -42,6 +46,7 @@ class ScoreController extends ERestController
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
+      */
 		);
 	}
 
@@ -122,9 +127,19 @@ class ScoreController extends ERestController
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Score');
+		$model=new Score('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Score']))
+			$model->attributes=$_GET['Score'];
+
+    $model->ik_id = Yii::app()->request->getParam('ikid');
+
+    if( ! $model->ik_id ) {
+      throw new CHttpException('404', 'Hmmm ...' );
+    }
+
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+			'model'=>$model,
 		));
 	}
 
